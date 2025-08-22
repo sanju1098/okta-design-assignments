@@ -1,0 +1,22 @@
+/* Custom styles for EmailPage theme and header */
+.bg-light-gray {
+  background-color: #f3f4f6;
+}
+.header-bar {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+}
+.theme-toggle-btn {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+.theme-toggle-btn:hover {
+  background: #e5e7eb;
+}
+.sun-icon {
+  color: #fbbf24;
+}
+.moon-icon {
+  color: #6366f1;
+}
