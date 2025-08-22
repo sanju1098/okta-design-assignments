@@ -1,10 +1,10 @@
 export const emailData = [
   {
     email: "hello@example.com",
-    isPrimary: true,
-    isVerified: true,
     description:
       "This email address is the default for all notifications and account access.",
+    isPrimary: true,
+    isVerified: true,
   },
   {
     email: "alternative@example.com",

@@ -3,12 +3,26 @@ import {Card} from "@/components/ui/card";
 import {useTheme} from "@/providers/ThemeProvider";
 import {ArrowLeft, Moon, Sun} from "lucide-react";
 import {useState} from "react";
-import {EmailItem} from "./EmailItem";
+import {EmailAction} from "./EmailAction";
 import {emailData} from "@/config/emailConfig";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {Switch} from "@/components/ui/switch";
 
 const EmailPage = () => {
   const {theme, setTheme} = useTheme();
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+
+  const [primaryEmail, setPrimaryEmail] = useState<string>("hello@example.com");
+  const [backupEmail, setBackupEmail] = useState<string>(
+    "Allow all verified emails",
+  );
+  const [keepPrivate, setKeepPrivate] = useState<boolean>(true);
 
   const toggleTheme = () => {
     setIsAnimating(true);
@@ -48,31 +62,130 @@ const EmailPage = () => {
             </div>
           </div>
         </div>
+
         {/* Body */}
         <div className="max-w-4xl mx-auto mt-4 p-4">
-          <div className="space-y-8">
-            <div>
-              <h1 className="text-2xl font-semibold text-foreground mb-2">
-                Emails
-              </h1>
-              <p className="text-muted-foreground mb-6">
+          {/* Emails */}
+          <div className="space-y-8 mb-8">
+            <div className="ml-6 mb-5">
+              <h1 className="text-xl font-semibold text-foreground">Emails</h1>
+              <p className="text-md text-muted-foreground">
                 Emails you can use to sign in to your account.
               </p>
-
-              <Card className="border border-border bg-card rounded-[1.75rem] p-4 overflow-hidden">
-                {emailData.map((email: any, index: number) => (
-                  <EmailItem
-                    key={`${email.email}-${index}`}
-                    email={email.email}
-                    isPrimary={email.isPrimary}
-                    isVerified={email.isVerified}
-                    description={email.description}
-                    onManage={() => console.log("Manage", email.email)}
-                    onRemove={() => console.log("Remove", email.email)}
-                  />
-                ))}
-              </Card>
             </div>
+
+            <Card className="border border-border bg-card rounded-[1.75rem] gap-4 p-4 overflow-hidden">
+              {emailData.map((email: any, index: number) => (
+                <EmailAction
+                  key={`${email.email}-${index}`}
+                  email={email.email}
+                  isPrimary={email.isPrimary}
+                  isVerified={email.isVerified}
+                  description={email.description}
+                  onManage={() => console.log("Manage", email.email)}
+                  onRemove={() => console.log("Remove", email.email)}
+                />
+              ))}
+            </Card>
+          </div>
+
+          {/* Email Settings */}
+          <div className="space-y-8 mb-8">
+            <div className="ml-6 mb-5">
+              <h1 className="text-xl font-semibold text-foreground">
+                Email Settings
+              </h1>
+              <p className="text-md text-muted-foreground">
+                Configure how emails are used in relation to your account.
+              </p>
+            </div>
+
+            <Card className="border border-border bg-card rounded-[1.75rem] gap-4 p-4 overflow-hidden">
+              {/* Primary Email */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-border border-b">
+                <div className="flex-1">
+                  <h3 className="text-base font-medium text-foreground">
+                    Primary email address
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Select an email to be used for account-related notifications
+                    and can be used for password reset.
+                  </p>
+                </div>
+
+                <div className="w-full md:w-[250px]">
+                  <Select value={primaryEmail} onValueChange={setPrimaryEmail}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hello@example.com">
+                        hello@example.com
+                      </SelectItem>
+                      <SelectItem value="alternative@example.com">
+                        alternative@example.com
+                      </SelectItem>
+                      <SelectItem value="alternative-unverified@example.com">
+                        alternative-unverified@example.com
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Backup Email */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-border border-b">
+                <div className="flex-1">
+                  <h3 className="text-base font-medium text-foreground">
+                    Backup email address
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Your backup email address will be used as an additional
+                    destination for security-relevant account notifications and
+                    can also be used for password resets.
+                  </p>
+                </div>
+
+                <div className="w-full md:w-[250px]">
+                  <Select value={backupEmail} onValueChange={setBackupEmail}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Allow all verified emails">
+                        Allow all verified emails
+                      </SelectItem>
+                      <SelectItem value="hello@example.com">
+                        hello@example.com
+                      </SelectItem>
+                      <SelectItem value="alternative@example.com">
+                        alternative@example.com
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Keep Private */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4">
+                <div className="flex-1">
+                  <h3 className="text-base font-medium text-foreground">
+                    Keep my email addresses private
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    We&apos;ll remove your public profile email when performing
+                    web-based operations and sending email on your behalf.
+                  </p>
+                </div>
+
+                <div className="w-full md:w-[250px] flex md:justify-end md:pr-4">
+                  <Switch
+                    checked={keepPrivate}
+                    onCheckedChange={setKeepPrivate}
+                  />
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </div>

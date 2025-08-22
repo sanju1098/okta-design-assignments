@@ -9,7 +9,7 @@ import {
 import {Badge} from "@/components/ui/badge";
 import {cn} from "@/lib/utils";
 
-interface EmailItemProps {
+interface EmailActionProps {
   email: string;
   isPrimary?: boolean;
   isVerified?: boolean;
@@ -19,7 +19,7 @@ interface EmailItemProps {
   onRemove?: () => void;
 }
 
-export function EmailItem({
+export function EmailAction({
   email,
   isPrimary = false,
   isVerified = false,
@@ -27,11 +27,11 @@ export function EmailItem({
   className,
   onManage,
   onRemove,
-}: EmailItemProps) {
+}: EmailActionProps) {
   return (
     <div
       className={cn(
-        "flex items-center justify-between py-4 px-6 border-b border-border last:border-b-0 hover:bg-hover/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 hover:scale-[1.02] cursor-pointer group",
+        "flex items-center justify-between p-4 border-border border-b last:border-b-0 hover:bg-hover/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 hover:scale-[1.02] cursor-pointer group",
         className,
       )}
     >
