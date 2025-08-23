@@ -1,4 +1,4 @@
-import {Suspense} from "react";
+import {lazy, Suspense} from "react";
 import {createBrowserRouter, Outlet} from "react-router-dom";
 import {ErrorBoundary} from "react-error-boundary";
 import {Info} from "lucide-react";
@@ -7,7 +7,6 @@ import {Button} from "@/components/ui/button";
 import {ThemeProvider} from "@/providers/ThemeProvider";
 import {Loader} from "@/components/loader";
 import ScrollToTop from "@/components/scroll-to-top";
-import EmailPage from "@/pages/EmailPage";
 import {THEME_KEY} from "./constants";
 
 const ErrorFallback = () => (
@@ -55,13 +54,15 @@ const AppLayout = () => (
   </ErrorBoundary>
 );
 
+const EmailPageLazy = lazy(() => import("../pages/EmailPage")); // Lazy load EmailPage
+
 export const routes = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
         path: "/",
-        element: <EmailPage />,
+        element: <EmailPageLazy />,
       },
       {
         path: "*",

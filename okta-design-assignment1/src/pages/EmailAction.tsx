@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Badge} from "@/components/ui/badge";
 import {cn} from "@/lib/utils";
+import React from "react";
 
 interface EmailActionProps {
   email: string;
@@ -19,7 +20,7 @@ interface EmailActionProps {
   onRemove?: () => void;
 }
 
-export function EmailAction({
+export const EmailAction = React.memo(function EmailAction({
   email,
   isPrimary = false,
   isVerified = false,
@@ -37,11 +38,24 @@ export function EmailAction({
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 mb-1">
-          <span className="font-medium text-foreground truncate">{email}</span>
+          <span className="font-medium text-foreground truncate" title={email}>
+            {email}
+          </span>
           <div className="flex items-center gap-2 flex-shrink-0">
-            {isPrimary && <Badge variant="default">PRIMARY</Badge>}
-            {isVerified && <Badge variant="secondary">VERIFIED</Badge>}
-            {!isVerified && <Badge variant="destructive">UNVERIFIED</Badge>}
+            {isPrimary && (
+              <Badge variant="default" aria-label="Primary email">
+                PRIMARY
+              </Badge>
+            )}
+            {isVerified ? (
+              <Badge variant="secondary" aria-label="Verified email">
+                VERIFIED
+              </Badge>
+            ) : (
+              <Badge variant="destructive" aria-label="Unverified email">
+                UNVERIFIED
+              </Badge>
+            )}
           </div>
         </div>
         {description && (
@@ -50,19 +64,16 @@ export function EmailAction({
       </div>
 
       <DropdownMenu>
-        <DropdownMenuTrigger
-          asChild
-          style={{padding: "0 20px"}}
-          className="data-[state=open]:border-2 rounded-md px-[20rem !important]"
-        >
+        <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 ml-4 px-5 flex-shrink-0 hover:bg-hover rounded-md
+            aria-label={`More options for ${email}`}
+            className="h-8 w-8 ml-4 flex-shrink-0 hover:bg-hover rounded-md 
             data-[state=open]:border-[#868584] data-[state=open]:bg-[#e7e5e4] dark:data-[state=open]:bg-transparent"
             title="More options"
           >
-            <MoreHorizontal />
+            <MoreHorizontal aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -72,19 +83,24 @@ export function EmailAction({
           <DropdownMenuItem
             onClick={onManage}
             className="cursor-pointer flex items-center gap-2"
+            aria-label={`Manage email ${email}`}
           >
-            <Settings2 className="h-4 w-4 text-muted-foreground" />
+            <Settings2
+              className="h-4 w-4 text-muted-foreground"
+              aria-hidden="true"
+            />
             Manage
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={onRemove}
             className="cursor-pointer flex items-center gap-2"
+            aria-label={`Remove email ${email}`}
           >
-            <Trash2 className="h-4 w-4 text-destructive" />
+            <Trash2 className="h-4 w-4 text-destructive" aria-hidden="true" />
             Remove
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
   );
-}
+});

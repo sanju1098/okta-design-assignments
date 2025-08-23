@@ -45,6 +45,7 @@ const EmailPage = () => {
           <div className="max-w-4xl mx-auto p-4">
             <div className="flex items-center justify-between">
               <Button
+                aria-label="Go back to your personal account"
                 variant="ghost"
                 size="sm"
                 className="p-0 h-auto text-muted-foreground hover:text-foreground"
@@ -60,7 +61,11 @@ const EmailPage = () => {
               >
                 <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
+                <span className="sr-only">
+                  {theme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"}
+                </span>
               </Button>
             </div>
           </div>
@@ -107,9 +112,9 @@ const EmailPage = () => {
               {/* Primary Email */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-border border-b">
                 <div className="flex-1">
-                  <h3 className="text-base font-medium text-foreground">
+                  <h2 className="text-base font-medium text-foreground">
                     Primary email address
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     Select an email to be used for account-related notifications
                     and can be used for password reset.
@@ -118,6 +123,7 @@ const EmailPage = () => {
 
                 <div className="w-full md:w-[250px]">
                   <Select
+                    aria-label="Select your primary email address"
                     value={primaryEmail}
                     onValueChange={(val) => {
                       setPrimaryEmail(val);
@@ -146,9 +152,9 @@ const EmailPage = () => {
               {/* Backup Email */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-border border-b">
                 <div className="flex-1">
-                  <h3 className="text-base font-medium text-foreground">
+                  <h2 className="text-base font-medium text-foreground">
                     Backup email address
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     Your backup email address will be used as an additional
                     destination for security-relevant account notifications and
@@ -157,7 +163,11 @@ const EmailPage = () => {
                 </div>
 
                 <div className="w-full md:w-[250px]">
-                  <Select value={backupEmail} onValueChange={setBackupEmail}>
+                  <Select
+                    aria-label="Select your backup email address"
+                    value={backupEmail}
+                    onValueChange={setBackupEmail}
+                  >
                     <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
@@ -179,9 +189,9 @@ const EmailPage = () => {
               {/* Keep Private */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4">
                 <div className="flex-1">
-                  <h3 className="text-base font-medium text-foreground">
+                  <h2 className="text-base font-medium text-foreground">
                     Keep my email addresses private
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     We&apos;ll remove your public profile email when performing
                     web-based operations and sending email on your behalf.
@@ -189,7 +199,11 @@ const EmailPage = () => {
                 </div>
 
                 <div className="w-full md:w-[250px] flex md:justify-end md:pr-4">
+                  <label htmlFor="keepPrivate" className="sr-only">
+                    Keep my email addresses private
+                  </label>
                   <Switch
+                    id="keepPrivate"
                     checked={keepPrivate}
                     onCheckedChange={setKeepPrivate}
                   />
