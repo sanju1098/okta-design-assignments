@@ -1,6 +1,5 @@
 import {Button} from "@/components/ui/button";
 import {Card} from "@/components/ui/card";
-import {useTheme} from "@/providers/ThemeProvider";
 import {ArrowLeft, Moon, Sun} from "lucide-react";
 import {useState} from "react";
 import {EmailAction} from "./EmailAction";
@@ -13,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {Switch} from "@/components/ui/switch";
+import {useTheme} from "@/components/hooks/useTheme";
 
 const EmailPage = () => {
   const {theme, setTheme} = useTheme();
@@ -83,7 +83,7 @@ const EmailPage = () => {
             </div>
 
             <Card className="border border-border bg-card rounded-[1.75rem] gap-4 p-4 overflow-hidden">
-              {emailList.map((email: any, index: number) => (
+              {emailList.map((email, index) => (
                 <EmailAction
                   key={`${email.email}-${index}`}
                   email={email.email}

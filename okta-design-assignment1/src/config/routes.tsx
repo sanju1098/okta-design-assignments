@@ -55,6 +55,7 @@ const AppLayout = () => (
 );
 
 const EmailPageLazy = lazy(() => import("../pages/EmailPage")); // Lazy load EmailPage
+const NotFoundLazy = lazy(() => import("../pages/NotFound")); // Lazy load EmailPage
 
 export const routes = createBrowserRouter([
   {
@@ -66,11 +67,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "*",
-        element: (
-          <h3 className="flex min-h-screen flex-col items-center justify-center text-3xl">
-            Page not Found
-          </h3>
-        ),
+        element: <NotFoundLazy />,
       },
     ],
   },
