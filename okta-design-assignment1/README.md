@@ -33,7 +33,7 @@ The project uses **Vite** for lightning-fast development/build, **Tailwind CSS**
 Clone the repository and install dependencies:
 
 ```sh
-git clone <your-repo-url>
+git clone https://github.com/sanju1098/okta-design-assignments
 cd okta-design-assignment1
 ```
 
