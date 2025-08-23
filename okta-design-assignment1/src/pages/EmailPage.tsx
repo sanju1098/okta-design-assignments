@@ -4,7 +4,7 @@ import {useTheme} from "@/providers/ThemeProvider";
 import {ArrowLeft, Moon, Sun} from "lucide-react";
 import {useState} from "react";
 import {EmailAction} from "./EmailAction";
-import {emailData} from "@/config/emailConfig";
+import {emailData as initialEmailData} from "@/config/emailConfig";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,10 @@ const EmailPage = () => {
   const {theme, setTheme} = useTheme();
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const [primaryEmail, setPrimaryEmail] = useState<string>("hello@example.com");
+  const [emailList, setEmailList] = useState(initialEmailData);
+  const [primaryEmail, setPrimaryEmail] = useState<string>(
+    initialEmailData.find((e) => e.isPrimary)?.email || "hello@example.com",
+  );
   const [backupEmail, setBackupEmail] = useState<string>(
     "Allow all verified emails",
   );
@@ -75,7 +78,7 @@ const EmailPage = () => {
             </div>
 
             <Card className="border border-border bg-card rounded-[1.75rem] gap-4 p-4 overflow-hidden">
-              {emailData.map((email: any, index: number) => (
+              {emailList.map((email: any, index: number) => (
                 <EmailAction
                   key={`${email.email}-${index}`}
                   email={email.email}
@@ -114,20 +117,27 @@ const EmailPage = () => {
                 </div>
 
                 <div className="w-full md:w-[250px]">
-                  <Select value={primaryEmail} onValueChange={setPrimaryEmail}>
+                  <Select
+                    value={primaryEmail}
+                    onValueChange={(val) => {
+                      setPrimaryEmail(val);
+                      setEmailList((prev) =>
+                        prev.map((email) => ({
+                          ...email,
+                          isPrimary: email.email === val,
+                        })),
+                      );
+                    }}
+                  >
                     <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="hello@example.com">
-                        hello@example.com
-                      </SelectItem>
-                      <SelectItem value="alternative@example.com">
-                        alternative@example.com
-                      </SelectItem>
-                      <SelectItem value="alternative-unverified@example.com">
-                        alternative-unverified@example.com
-                      </SelectItem>
+                      {emailList.map((email) => (
+                        <SelectItem key={email.email} value={email.email}>
+                          {email.email}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
