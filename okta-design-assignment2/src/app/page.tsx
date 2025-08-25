@@ -40,52 +40,6 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-
-            {/* Feature Cards */}
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <Card className="border-[#e3e8ef]/50 hover:border-[#2970ff]/50 transition-all duration-300 hover:shadow-lg group">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-[#2970ff]/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-[#2970ff]/20 transition-colors">
-                    <MousePointer className="h-6 w-6 text-[#2970ff]" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">Drag & Drop</h3>
-                  <p className="text-[#6b778c] text-sm">
-                    Effortlessly build forms by dragging components from our
-                    rich library
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-[#e3e8ef]/50 hover:border-[#2970ff]/50 transition-all duration-300 hover:shadow-lg group">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-[#2970ff]/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-[#2970ff]/20 transition-colors">
-                    <Palette className="h-6 w-6 text-[#2970ff]" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Beautiful Design
-                  </h3>
-                  <p className="text-[#6b778c] text-sm">
-                    Professional-looking forms with modern design and smooth
-                    animations
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-[#e3e8ef]/50 hover:border-[#2970ff]/50 transition-all duration-300 hover:shadow-lg group">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-[#2970ff]/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-[#2970ff]/20 transition-colors">
-                    <Zap className="h-6 w-6 text-[#2970ff]" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Real-time Preview
-                  </h3>
-                  <p className="text-[#6b778c] text-sm">
-                    See your form come to life as you build it with instant
-                    preview mode
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </div>
       </div>

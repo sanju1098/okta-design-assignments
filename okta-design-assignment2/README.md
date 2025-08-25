@@ -187,6 +187,10 @@ Each form field supports:
 ## Development Tips
 
 1. **Adding New Field Types**: Extend the `FormField` interface and update rendering logic
-2. **Custom Themes**: Modify design tokens in `index.css` and `tailwind.config.ts`
+2. **Custom Themes**: Modify design tokens in `index.css`
 3. **State Updates**: Use the store actions for consistent state management
 4. **Component Extensions**: Follow the existing patterns for new components
+
+![Image 1](image.png)
+![Image 2](image-1.png)
+![Image 3](image-2.png)

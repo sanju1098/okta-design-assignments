@@ -32,7 +32,7 @@ The project uses **Vite** for lightning-fast development/build, **Tailwind CSS**
 
 Clone the repository and install dependencies:
 
-```sh
+```
 git clone https://github.com/sanju1098/okta-design-assignments
 cd okta-design-assignment1
 ```
@@ -49,13 +49,13 @@ yarn install
 
 Start the development server:
 
-```sh
+```
 npm run dev
 # or
 yarn dev
+```
 
 App runs at: [http://localhost:5173](http://localhost:5173)
-```
 
 ---
 
@@ -63,7 +63,7 @@ App runs at: [http://localhost:5173](http://localhost:5173)
 
 Create a production build:
 
-```sh
+```
 npm run build
 # or
 yarn build
@@ -73,7 +73,7 @@ yarn build
 
 Preview the build application:
 
-```sh
+```
 npm run preview
 # or
 yarn preview
@@ -100,7 +100,7 @@ This project includes **ESLint** and **Prettier** for consistent, high-quality c
 
 Run linting:
 
-```sh
+```
 npm run lint
 npm run format
 ```
@@ -114,3 +114,7 @@ npm run format
 - **Radix UI components**
 - **ESLint & Prettier**
 - **React Router** (routing, 404)
+
+![Image 1](image.png)
+![Image 2](image-1.png)
+![Image 3](image-2.png)
