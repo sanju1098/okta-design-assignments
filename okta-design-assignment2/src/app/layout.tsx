@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   title: "Design Assignment 2 - OKTA",
   description:
     "FormKit is a drag-and-drop visual form builder for creating and previewing custom forms.",
+  icons: {
+    icon: "/okta-logo.png",
+    shortcut: "/okta-logo.png",
+    apple: "/okta-logo.png",
+  },
 };
 
 export default function RootLayout({

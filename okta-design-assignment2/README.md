@@ -184,7 +184,7 @@ Each form field supports:
 - **Upload Settings**: File type restrictions, size limits
 - **Styling Options**: Custom appearance settings
 
-## 🔍 Development Tips
+## Development Tips
 
 1. **Adding New Field Types**: Extend the `FormField` interface and update rendering logic
 2. **Custom Themes**: Modify design tokens in `index.css` and `tailwind.config.ts`
