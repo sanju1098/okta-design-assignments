@@ -5,11 +5,11 @@ export interface FormField {
   type:
     | "text"
     | "textarea"
-    | "select"
-    | "checkbox"
-    | "radio"
-    | "number"
     | "email"
+    | "number"
+    | "select"
+    | "radio"
+    | "checkbox"
     | "logo"
     | "cover";
   label: string;
