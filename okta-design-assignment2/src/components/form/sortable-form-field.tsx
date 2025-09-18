@@ -1,3 +1,8 @@
+// SortableFormField: Renders a single form field in the builder canvas with drag-and-drop and controls.
+// Purpose: Allows users to reorder, select, and remove fields interactively in the form builder.
+// Why used: Provides a sortable, interactive UI for each field, supporting drag handles, selection, and field actions.
+// What it does: Integrates dnd-kit sortable logic, displays field content, and shows controls for editing/removing fields.
+
 "use client";
 
 import { useSortable } from "@dnd-kit/sortable";
@@ -18,11 +23,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { GripVertical, Trash2, Settings, Upload, Image } from "lucide-react";
 
+// Props for SortableFormField: receives a FormField object
 interface SortableFormFieldProps {
   field: FormField;
 }
 
+// SortableFormField: Renders a draggable, selectable, and removable field in the builder
 export function SortableFormField({ field }: SortableFormFieldProps) {
+  // dnd-kit sortable logic for drag-and-drop
   const {
     attributes,
     listeners,
@@ -32,14 +40,17 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
     isDragging,
   } = useSortable({ id: field.id });
 
+  // Zustand store actions for field selection and removal
   const { selectField, removeField, selectedFieldId } = useFormStore();
   const isSelected = selectedFieldId === field.id;
 
+  // Style for drag transform and transition
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
+  // Renders the field's input based on its type (disabled for preview)
   const renderFormField = () => {
     switch (field.type) {
       case "text":
@@ -128,6 +139,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
   };
 
   return (
+    // Main field container with drag, select, and remove controls
     <div
       ref={setNodeRef}
       style={style}
@@ -140,7 +152,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
       }`}
       onClick={() => selectField(field.id)}
     >
-      {/* Drag Handle */}
+      {/* Drag Handle: enables drag-and-drop */}
       <div
         {...attributes}
         {...listeners}
@@ -149,7 +161,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
         <GripVertical className="h-4 w-4 text-muted-foreground" />
       </div>
 
-      {/* Field Controls */}
+      {/* Field Controls: settings and remove buttons */}
       <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1">
         <Button
           variant="ghost"
@@ -175,7 +187,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
         </Button>
       </div>
 
-      {/* Field Content */}
+      {/* Field Content: label and input preview */}
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
           <Label className="text-sm font-medium">
@@ -186,7 +198,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
         {renderFormField()}
       </div>
 
-      {/* Selection Indicator */}
+      {/* Selection Indicator: highlights selected field */}
       {isSelected && (
         <div className="absolute -inset-1 bg-primary/5 rounded-lg border-2 border-primary pointer-events-none" />
       )}

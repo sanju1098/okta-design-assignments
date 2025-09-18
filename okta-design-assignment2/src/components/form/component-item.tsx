@@ -1,3 +1,8 @@
+// ComponentItem: Renders a visual preview of a form component (input, select, etc).
+// Purpose: Used in drag overlays and previews to show what a component looks like before adding to the form.
+// Why used: Provides a consistent UI for displaying component type, label, and description with an icon.
+// What it does: Maps type to icon, displays label and description, and styles the preview card.
+
 "use client";
 
 import {
@@ -10,6 +15,7 @@ import {
   Mail,
 } from "lucide-react";
 
+// Maps component type to corresponding icon
 const iconMap = {
   text: Type,
   textarea: FileText,
@@ -20,17 +26,20 @@ const iconMap = {
   checkbox: CheckSquare,
 };
 
+// Props for ComponentItem: type, label, description
 interface ComponentItemProps {
   type: string;
   label: string;
   description?: string;
 }
 
+// ComponentItem: Renders a card with icon, label, and description for a form component
 export function ComponentItem({
   type,
   label,
   description,
 }: ComponentItemProps) {
+  // Select icon based on type, fallback to Type icon
   const Icon = iconMap[type as keyof typeof iconMap] || Type;
 
   return (

@@ -1,3 +1,8 @@
+// FormBuilderCanvas: Main canvas area for building forms via drag-and-drop.
+// Purpose: Provides a droppable zone for form fields, displays a live preview, and supports reordering fields.
+// Why used: Central workspace for users to visually construct and arrange their form fields interactively.
+// What it does: Renders form preview, handles drop events, shows empty state and drop indicators, and lists sortable fields.
+
 "use client";
 
 import { useDroppable } from "@dnd-kit/core";
@@ -10,13 +15,19 @@ import { useFormStore } from "@/lib/store";
 import { Plus, MousePointer2 } from "lucide-react";
 import { SortableFormField } from "./sortable-form-field";
 
+// Props for FormBuilderCanvas: receives drag end handler from parent
 interface FormBuilderCanvasProps {
   onDragEnd: (event: DragEndEvent) => void;
 }
 
+// FormBuilderCanvas: Renders the main form building area
+// - Shows a preview of the form as fields are added
+// - Allows users to drop new components and reorder fields
+// - Displays empty state and drop zone indicators
 export function FormBuilderCanvas({ onDragEnd }: FormBuilderCanvasProps) {
   const { fields } = useFormStore();
 
+  // useDroppable: enables drop zone for drag-and-drop
   const { setNodeRef, isOver } = useDroppable({
     id: "form-canvas",
   });
@@ -41,7 +52,7 @@ export function FormBuilderCanvas({ onDragEnd }: FormBuilderCanvasProps) {
           </div>
         </div>
 
-        {/* Form Fields */}
+        {/* Form Fields: sortable and droppable */}
         {fields.length > 0 ? (
           <SortableContext
             items={fields.map((field) => field.id)}
@@ -54,6 +65,7 @@ export function FormBuilderCanvas({ onDragEnd }: FormBuilderCanvasProps) {
             </div>
           </SortableContext>
         ) : (
+          // Empty state: prompt user to drag components
           <div
             className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 ${
               isOver
@@ -79,7 +91,7 @@ export function FormBuilderCanvas({ onDragEnd }: FormBuilderCanvasProps) {
           </div>
         )}
 
-        {/* Drop Zone Indicator */}
+        {/* Drop Zone Indicator: shows when dragging over canvas with fields */}
         {isOver && fields.length > 0 && (
           <div className="mt-4 p-4 border-2 border-dashed border-primary bg-formkit-drop-zone rounded-lg">
             <div className="text-center text-primary font-medium">

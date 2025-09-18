@@ -1,5 +1,10 @@
-import { create } from "zustand";
+// Zustand store for the Form Builder app.
+// Purpose: Centralizes all form builder state and actions for managing fields, UI state, history, and undo/redo.
+// Why used: Allows components to access and update form state in a predictable, reactive way.
+// What it does: Defines the schema for form fields and builder state, and provides all actions needed for interactive form building.
 
+// FormField: Describes a single field in the form (input, select, radio, etc).
+// Used to render and manage each field's properties and validation.
 export interface FormField {
   id: string;
   type:
@@ -24,6 +29,8 @@ export interface FormField {
   file?: File; // for logo/cover uploads
 }
 
+// FormBuilderState: Main state object for the form builder.
+// Contains all fields, selected field, preview mode, form metadata, theme, and history for undo/redo.
 export interface FormBuilderState {
   fields: FormField[];
   selectedFieldId: string | null;
@@ -39,6 +46,8 @@ export interface FormBuilderState {
   historyIndex: number;
 }
 
+// FormBuilderActions: All actions that can update the form builder state.
+// Includes adding, updating, removing, reordering fields, selecting, preview toggling, metadata, theme, clearing, and undo/redo.
 export interface FormBuilderActions {
   addField: (field: Omit<FormField, "id">) => void;
   updateField: (id: string, updates: Partial<FormField>) => void;
@@ -54,6 +63,8 @@ export interface FormBuilderActions {
   redo: () => void;
 }
 
+// initialState: Default values for a new form builder session.
+// Used to reset the form and initialize the store.
 const initialState: FormBuilderState = {
   fields: [],
   selectedFieldId: null,
@@ -69,10 +80,15 @@ const initialState: FormBuilderState = {
   historyIndex: 0,
 };
 
+import { create } from "zustand";
+
+// useFormStore: Main Zustand store hook for the form builder.
+// Provides state and all actions for managing the form interactively.
 export const useFormStore = create<FormBuilderState & FormBuilderActions>(
   (set, get) => ({
     ...initialState,
 
+    // Add a new field to the form, generate unique id, update history for undo/redo
     addField: (field) => {
       const id = `field_${Date.now()}_${Math.random()
         .toString(36)
@@ -91,6 +107,7 @@ export const useFormStore = create<FormBuilderState & FormBuilderActions>(
       });
     },
 
+    // Update properties of a field by id
     updateField: (id, updates) => {
       set((state) => ({
         fields: state.fields.map((field) =>
@@ -99,6 +116,7 @@ export const useFormStore = create<FormBuilderState & FormBuilderActions>(
       }));
     },
 
+    // Remove a field by id, update history for undo/redo
     removeField: (id) => {
       set((state) => {
         const newFields = state.fields.filter((field) => field.id !== id);
@@ -114,6 +132,7 @@ export const useFormStore = create<FormBuilderState & FormBuilderActions>(
       });
     },
 
+    // Move a field from one index to another
     reorderFields: (fromIndex, toIndex) => {
       set((state) => {
         const newFields = [...state.fields];
@@ -123,32 +142,39 @@ export const useFormStore = create<FormBuilderState & FormBuilderActions>(
       });
     },
 
+    // Select a field for editing
     selectField: (id) => {
       set({ selectedFieldId: id });
     },
 
+    // Toggle preview mode for the form
     togglePreviewMode: () => {
       set((state) => ({ isPreviewMode: !state.isPreviewMode }));
     },
 
+    // Set the form title
     setFormTitle: (title) => {
       set({ formTitle: title });
     },
 
+    // Set the form description
     setFormDescription: (description) => {
       set({ formDescription: description });
     },
 
+    // Update the form theme (colors)
     setFormTheme: (theme) => {
       set((state) => ({
         formTheme: { ...state.formTheme, ...theme },
       }));
     },
 
+    // Reset the form to its initial state
     clearForm: () => {
       set(initialState);
     },
 
+    // Undo last change (history)
     undo: () => {
       set((state) => {
         if (state.historyIndex > 0) {
@@ -163,6 +189,7 @@ export const useFormStore = create<FormBuilderState & FormBuilderActions>(
       });
     },
 
+    // Redo last undone change (history)
     redo: () => {
       set((state) => {
         if (state.historyIndex < state.history.length - 1) {

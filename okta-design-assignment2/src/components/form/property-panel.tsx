@@ -1,3 +1,8 @@
+// PropertyPanel: Sidebar panel for editing properties of the selected form field.
+// Purpose: Allows users to customize field label, placeholder, required status, options, and validation rules.
+// Why used: Provides a focused UI for field customization, making form building flexible and interactive.
+// What it does: Renders controls for editing the selected field's properties, including options for select/radio and validation for text/textarea.
+
 "use client";
 
 import { useFormStore } from "@/lib/store";
@@ -10,10 +15,13 @@ import { Plus, X, Settings } from "lucide-react";
 import { useState } from "react";
 
 export function PropertyPanel() {
+  // Get fields, selected field, and updateField action from store
   const { fields, selectedFieldId, updateField } = useFormStore();
+  // Find the currently selected field
   const selectedField = fields.find((f) => f.id === selectedFieldId);
-  const [newOption, setNewOption] = useState("");
+  const [newOption, setNewOption] = useState(""); // Local state for new option input
 
+  // If no field is selected, show empty state
   if (!selectedField) {
     return (
       <aside className="w-80 bg-background border-l border-border p-6">
@@ -32,6 +40,7 @@ export function PropertyPanel() {
     );
   }
 
+  // Add a new option to select/radio field
   const handleAddOption = () => {
     if (!newOption.trim()) return;
 
@@ -42,6 +51,7 @@ export function PropertyPanel() {
     setNewOption("");
   };
 
+  // Remove an option from select/radio field
   const handleRemoveOption = (index: number) => {
     const currentOptions = selectedField.options || [];
     updateField(selectedField.id, {
@@ -49,6 +59,7 @@ export function PropertyPanel() {
     });
   };
 
+  // Update an option value for select/radio field
   const handleUpdateOption = (index: number, value: string) => {
     const currentOptions = selectedField.options || [];
     const newOptions = [...currentOptions];
@@ -57,6 +68,7 @@ export function PropertyPanel() {
   };
 
   return (
+    // Sidebar layout for field properties
     <aside className="w-80 border-l border-border overflow-y-auto">
       <div className="p-6">
         <div className="mb-6">
@@ -69,7 +81,7 @@ export function PropertyPanel() {
         </div>
 
         <div className="space-y-6">
-          {/* Basic Properties */}
+          {/* Basic Properties: label, placeholder, required */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-sm">Basic Settings</CardTitle>
@@ -173,7 +185,7 @@ export function PropertyPanel() {
             </Card>
           )}
 
-          {/* Validation Rules */}
+          {/* Validation Rules for text/textarea fields */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-sm">Validation</CardTitle>

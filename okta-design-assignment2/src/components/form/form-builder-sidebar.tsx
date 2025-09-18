@@ -1,3 +1,8 @@
+// FormBuilderSidebar: Sidebar panel for the form builder UI.
+// Purpose: Lets users drag-and-drop form components onto the canvas and select a color theme for the form.
+// Why used: Centralizes all available form components and design options in one place for easy access.
+// What it does: Renders draggable components (inputs, selects, media), allows theme selection, and provides UI hints for building forms.
+
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
@@ -18,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useFormStore } from "@/lib/store";
 
+// List of available form component categories and their metadata (type, label, icon, description)
 const componentCategories = [
   {
     title: "Input Fields",
@@ -93,6 +99,7 @@ const componentCategories = [
   },
 ];
 
+// Props for a draggable component card in the sidebar
 interface DraggableComponentProps {
   type: string;
   label: string;
@@ -100,6 +107,8 @@ interface DraggableComponentProps {
   description: string;
 }
 
+// DraggableComponent: Renders a draggable card for a form component in the sidebar.
+// Uses dnd-kit to enable drag-and-drop, displays icon, label, and description.
 function DraggableComponent({
   type,
   label,
@@ -146,9 +155,14 @@ function DraggableComponent({
   );
 }
 
+// FormBuilderSidebar: Renders the sidebar for the form builder.
+// - Shows all available form components grouped by category
+// - Allows users to drag components to the canvas
+// - Lets users select a color theme for the form
 export function FormBuilderSidebar() {
   const { formTheme, setFormTheme } = useFormStore();
 
+  // Preset color themes for the form
   const colorPresets = [
     {
       name: "Blue",
@@ -177,6 +191,7 @@ export function FormBuilderSidebar() {
   ];
 
   return (
+    // Sidebar layout with components, theme selector, and drag instructions
     <aside className="w-80 bg-formkit-sidebar border-r border-sidebar-border overflow-y-auto">
       <div className="p-6">
         <div className="mb-6">
@@ -232,6 +247,7 @@ export function FormBuilderSidebar() {
           </div>
         </div>
 
+        {/* Render all component categories and their draggable components */}
         <div className="space-y-6">
           {componentCategories.map((category) => (
             <div key={category.title} className="space-y-3">
@@ -257,6 +273,7 @@ export function FormBuilderSidebar() {
           ))}
         </div>
 
+        {/* Drag instructions for users */}
         <div className="mt-8 p-4 bg-muted/30 rounded-lg border border-dashed">
           <div className="text-center">
             <MousePointer className="h-8 w-8 text-muted-foreground mx-auto mb-2" />

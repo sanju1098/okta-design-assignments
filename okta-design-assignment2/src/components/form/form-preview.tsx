@@ -1,3 +1,8 @@
+// FormPreview: Renders a live preview of the form as it will appear to end users.
+// Purpose: Allows users to see how their form will look and behave before publishing or sharing.
+// Why used: Provides instant feedback and validation for the form builder, improving user experience and confidence.
+// What it does: Displays all form fields, handles field rendering by type, applies theme, and includes a submit button.
+
 "use client";
 
 import { useFormStore } from "@/lib/store";
@@ -18,9 +23,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Send } from "lucide-react";
 
 export function FormPreview() {
+  // Get form fields, metadata, theme, and preview toggle from store
   const { fields, formTitle, formDescription, togglePreviewMode, formTheme } =
     useFormStore();
 
+  // Renders a single field based on its type
   const renderField = (field: any) => {
     switch (field.type) {
       case "text":
@@ -103,11 +110,12 @@ export function FormPreview() {
   };
 
   return (
+    // Main preview layout with theme and form rendering
     <div
       className="min-h-screen"
       style={{ backgroundColor: formTheme.backgroundColor }}
     >
-      {/* Header */}
+      {/* Header: back button and preview label */}
       <div className="bg-background border-b">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -128,7 +136,7 @@ export function FormPreview() {
         </div>
       </div>
 
-      {/* Form */}
+      {/* Form: shows all fields and submit button */}
       <div className="max-w-2xl mx-auto p-8">
         <Card
           className="shadow-lg"
@@ -153,6 +161,7 @@ export function FormPreview() {
 
           <CardContent>
             {fields.length === 0 ? (
+              // Empty state: prompt user to add fields
               <div className="text-center py-12">
                 <p className="text-muted-foreground">
                   No fields added yet. Go back to the editor to add some fields.

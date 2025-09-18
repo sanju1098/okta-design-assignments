@@ -1,3 +1,7 @@
+// FormBuilderHeader: Sticky header bar for the form builder page.
+// Purpose: Provides quick access to form actions (edit title, undo/redo, settings, preview, save).
+// Why used: Centralizes all essential form controls for a smooth form-building experience.
+// What it does: Interacts with the form state (via Zustand), allows editing form title/description, undo/redo, clearing the form, toggling preview mode, and saving.
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -14,7 +18,12 @@ import {
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
+// Main header component for the form builder UI.
+// - Left: Branding and editable form title
+// - Center: Undo/redo, settings dialog (edit title/description, clear form)
+// - Right: Preview and Save buttons
 export function FormBuilderHeader() {
+  // Hooks from Zustand store for form state and actions
   const {
     formTitle,
     setFormTitle,
@@ -28,15 +37,17 @@ export function FormBuilderHeader() {
     setFormDescription,
   } = useFormStore();
 
+  // Local state for settings dialog visibility
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
+  // Enable/disable undo/redo buttons based on history
   const canUndo = historyIndex > 0;
   const canRedo = historyIndex < history.length - 1;
 
   return (
     <header className="h-16 border-b border-[#e3e8ef] bg-[#ffffff]/95 backdrop-blur supports-[backdrop-filter]:bg-[#ffffff]/60 sticky top-0 z-50">
       <div className="flex items-center justify-between h-full px-6">
-        {/* Left: Form Title */}
+        {/* Left: Branding and editable form title */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <h1 className="text-xl font-semibold bg-gradient-to-r from-[#2970ff] to-[#5c8dff] bg-clip-text text-transparent">
@@ -44,6 +55,7 @@ export function FormBuilderHeader() {
             </h1>
             <div className="w-px h-6 bg-[#e3e8ef]" />
           </div>
+          {/* Editable form title input */}
           <Input
             value={formTitle}
             onChange={(e) => setFormTitle(e.target.value)}
@@ -52,8 +64,9 @@ export function FormBuilderHeader() {
           />
         </div>
 
-        {/* Center: Quick Actions */}
+        {/* Center: Undo/redo, settings dialog (edit title/description, clear form) */}
         <div className="flex items-center space-x-2">
+          {/* Undo button */}
           <Button
             variant="ghost"
             size="sm"
@@ -63,6 +76,7 @@ export function FormBuilderHeader() {
           >
             <Undo className="h-4 w-4" />
           </Button>
+          {/* Redo button */}
           <Button
             variant="ghost"
             size="sm"
@@ -73,6 +87,7 @@ export function FormBuilderHeader() {
             <Redo className="h-4 w-4" />
           </Button>
           <div className="w-px h-6 bg-[#e3e8ef]" />
+          {/* Settings dialog: edit title, description, clear form */}
           <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
             <DialogTrigger asChild>
               <Button variant="ghost" size="sm" title="Form Settings">
@@ -102,6 +117,7 @@ export function FormBuilderHeader() {
                     placeholder="Enter form description..."
                   />
                 </div>
+                {/* Clear form button */}
                 <Button
                   variant="destructive"
                   onClick={() => {
@@ -117,8 +133,9 @@ export function FormBuilderHeader() {
           </Dialog>
         </div>
 
-        {/* Right: Preview & Save */}
+        {/* Right: Preview and Save buttons */}
         <div className="flex items-center space-x-3">
+          {/* Preview mode toggle button */}
           <Button
             variant="outline"
             onClick={togglePreviewMode}
@@ -127,6 +144,7 @@ export function FormBuilderHeader() {
             <Eye className="h-4 w-4 mr-2" />
             Preview
           </Button>
+          {/* Save form button (no action implemented) */}
           <Button className="bg-gradient-to-r from-[#2970ff] to-[#5c8dff] hover:shadow-lg transition-all duration-200 text-white">
             <Save className="h-4 w-4 mr-2" />
             Save Form
