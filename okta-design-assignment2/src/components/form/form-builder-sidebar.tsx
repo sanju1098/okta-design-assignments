@@ -19,7 +19,6 @@ import {
   ImageIcon,
   Palette,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useFormStore } from "@/lib/store";
 

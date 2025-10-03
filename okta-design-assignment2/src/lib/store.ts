@@ -85,7 +85,7 @@ import { create } from "zustand";
 // useFormStore: Main Zustand store hook for the form builder.
 // Provides state and all actions for managing the form interactively.
 export const useFormStore = create<FormBuilderState & FormBuilderActions>(
-  (set, get) => ({
+  (set) => ({
     ...initialState,
 
     // Add a new field to the form, generate unique id, update history for undo/redo

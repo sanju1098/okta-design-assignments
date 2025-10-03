@@ -24,7 +24,7 @@ interface FormBuilderCanvasProps {
 // - Shows a preview of the form as fields are added
 // - Allows users to drop new components and reorder fields
 // - Displays empty state and drop zone indicators
-export function FormBuilderCanvas({ onDragEnd }: FormBuilderCanvasProps) {
+export function FormBuilderCanvas({}: FormBuilderCanvasProps) {
   const { fields } = useFormStore();
 
   // useDroppable: enables drop zone for drag-and-drop

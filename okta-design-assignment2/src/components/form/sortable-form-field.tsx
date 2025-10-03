@@ -21,7 +21,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { GripVertical, Trash2, Settings, Upload, Image } from "lucide-react";
+import {
+  GripVertical,
+  Trash2,
+  Settings,
+  Upload,
+  Image as ImageIcon,
+} from "lucide-react";
 
 // Props for SortableFormField: receives a FormField object
 interface SortableFormFieldProps {
@@ -117,7 +123,7 @@ export function SortableFormField({ field }: SortableFormFieldProps) {
           <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center pointer-events-none">
             <div className="flex flex-col items-center space-y-2">
               {field.type === "logo" ? (
-                <Image className="h-8 w-8 text-muted-foreground" />
+                <ImageIcon className="h-8 w-8 text-muted-foreground" />
               ) : (
                 <Upload className="h-8 w-8 text-muted-foreground" />
               )}

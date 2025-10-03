@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -90,6 +90,7 @@ function AvatarImage({
 
   return (
     <img
+      alt="avatar-image"
       data-slot="avatar-image"
       className={cn("aspect-square size-full", className)}
       onLoad={handleLoad}
